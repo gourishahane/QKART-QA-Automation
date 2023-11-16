@@ -123,6 +123,9 @@ public class QkartSanity {
         int passedTests = 0;
         Boolean status;
         // Maximize and Implicit Wait for things to initailize
+        RemoteWebDriver driver = createDriver();
+
+        
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 

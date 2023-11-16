@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Login {
     RemoteWebDriver driver;
@@ -33,12 +34,15 @@ public class Login {
 
         // Wait for user name to be entered
         Thread.sleep(1000);
+        
 
         // Find the password Text Box
         WebElement password_txt_box = this.driver.findElement(By.id("password"));
+        Thread.sleep(1000);
 
         // Enter the password
         password_txt_box.sendKeys(Password);
+        Thread.sleep(1000);
 
         // Find the Login Button
         WebElement login_button = driver.findElement(By.className("button"));
@@ -56,7 +60,7 @@ public class Login {
         try {
             // Find the username label (present on the top right of the page)
             WebElement username_label;
-             username_label = this.driver.findElement(By.id("username-text"));
+             username_label = this.driver.findElement(By.className("username-text"));
             return username_label.getText().equals(Username);
         } catch (Exception e) {
             return false;
