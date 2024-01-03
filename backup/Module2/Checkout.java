@@ -41,8 +41,6 @@ public class Checkout {
 
             WebElement addButton = driver.findElement(By.xpath("//button[text()='Add']"));
             addButton.click();
-            WebDriverWait wait=new WebDriverWait(driver, 2);
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@class='address-item not-selected MuiBox-root css-0'])/div[1]/p")));
             return true;
         } catch (Exception e) {
             System.out.println("Exception occurred while entering address: " + e.getMessage());

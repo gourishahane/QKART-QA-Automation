@@ -50,15 +50,8 @@ public class Login {
         // Click the login Button
         login_button.click();
 
-        // SLEEP_STMT_13: Wait for Login to Complete
         // Wait for Login action to complete
-        //Thread.sleep(5000);
-        FluentWait<WebDriver> wait=new FluentWait<WebDriver>(driver);
-        wait.pollingEvery(Duration.ofMillis(250));
-        wait.withTimeout(Duration.ofSeconds(30));
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("button")));
-
-        
+        Thread.sleep(5000);
 
         return this.VerifyUserLoggedIn(Username);
     }

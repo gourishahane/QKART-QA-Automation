@@ -29,7 +29,6 @@ public class Home {
             WebElement logout_button = driver.findElement(By.className("MuiButton-text"));
             logout_button.click();
 
-            // SLEEP_STMT_10: Wait for Logout to complete
             // Wait for Logout to Complete
             Thread.sleep(3000);
 
@@ -54,15 +53,7 @@ public class Home {
             searchBox.clear();
             searchBox.sendKeys(product);
            // WebElement searchIcon=driver.findElement(By.xpath("//*[@id='root']/div/div/div[1]/div[2]/div/div/svg"));
-           //Thread.sleep(3000);
-
-            WebDriverWait wait = new WebDriverWait(driver,3);
-            wait.until(ExpectedConditions.or(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h4[text()=' No products found ']")),
-                                            ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//div[@class='MuiCardContent-root css-1qw96cp']"))));
-
-
-
-
+           Thread.sleep(3000);
             
             return true;
         } catch (Exception e) {
@@ -199,26 +190,11 @@ checkOutButton.click();
                         if(quantity>actualQuantity){
                             WebElement plusButton=parentElement.findElement(By.xpath(".//*[@data-testid='AddOutlinedIcon']"));
                             plusButton.click();
-                            //Thread.sleep(2000);
-                            
-
-                            WebDriverWait wait=new WebDriverWait(driver,30);
-                            wait.until(ExpectedConditions.textToBePresentInElement
-                            (parentElement.findElement(By.xpath(".//*[@data-testid='item-qty']")),
-                            String.valueOf(actualQuantity+1)));
-
-
+                            Thread.sleep(2000);
                         }else if(quantity<actualQuantity){
                             WebElement minusButton=parentElement.findElement(By.xpath(".//*[@data-testid='RemoveOutlinedIcon']"));
                             minusButton.click();
-                           // Thread.sleep(2000);
-
-                           WebDriverWait wait=new WebDriverWait(driver,30);
-                            wait.until(ExpectedConditions.textToBePresentInElement
-                            (parentElement.findElement(By.xpath(".//*[@data-testid='item-qty']")),
-                            String.valueOf(actualQuantity-1)));
-
-
+                            Thread.sleep(2000);
                         }else if(quantity==actualQuantity){
                             break;
                         }
