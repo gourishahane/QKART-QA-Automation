@@ -46,24 +46,6 @@ public class Home {
      */
     public Boolean searchForProduct(String product) {
         try {
-            // TODO: CRIO_TASK_MODULE_TEST_AUTOMATION - TEST CASE 03: MILESTONE 1
-            // Clear the contents of the search box and Enter the product name in the search
-            // box
-            WebElement searchBox=driver.findElement(By.xpath("(//input[@name='search'])[1]"));
-            //searchBox.click();
-            searchBox.clear();
-            searchBox.sendKeys(product);
-           // WebElement searchIcon=driver.findElement(By.xpath("//*[@id='root']/div/div/div[1]/div[2]/div/div/svg"));
-           //Thread.sleep(3000);
-
-            WebDriverWait wait = new WebDriverWait(driver,3);
-            wait.until(ExpectedConditions.or(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h4[text()=' No products found ']")),
-                                            ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//div[@class='MuiCardContent-root css-1qw96cp']"))));
-
-
-
-
-            
             return true;
         } catch (Exception e) {
             System.out.println("Error while searching for a product: " + e.getMessage());
@@ -78,12 +60,6 @@ public class Home {
         List<WebElement> searchResults = new ArrayList<WebElement>() {
         };
         try {
-            // TODO: CRIO_TASK_MODULE_TEST_AUTOMATION - TEST CASE 03: MILESTONE 1
-            // Find all webelements corresponding to the card content section of each of
-            // search results
-
-            searchResults=driver.findElements(By.xpath("//div[@class='MuiCardContent-root css-1qw96cp']"));
-            
             return searchResults;
         } catch (Exception e) {
             System.out.println("There were no search results: " + e.getMessage());
@@ -98,18 +74,6 @@ public class Home {
     public Boolean isNoResultFound() {
         Boolean status = false;
         try {
-            // TODO: CRIO_TASK_MODULE_TEST_AUTOMATION - TEST CASE 03: MILESTONE 1
-            // Check the presence of "No products found" text in the web page. Assign status
-            // = true if the element is *displayed* else set status = false
-            WebElement noProductFound=driver.findElement(By.xpath("//h4[text()=' No products found ']"));
-if(noProductFound.isDisplayed()){
-    String actualText=noProductFound.getText();
-    if(actualText.equals("No products found")){
-        status=true;
-    }
-    
-}
-
             return status;
         } catch (Exception e) {
             return status;
@@ -121,7 +85,6 @@ if(noProductFound.isDisplayed()){
      */
     public Boolean addProductToCart(String productName) {
         try {
-            // TODO: CRIO_TASK_MODULE_TEST_AUTOMATION - TEST CASE 05: MILESTONE 4
             /*
              * Iterate through each product on the page to find the WebElement corresponding
              * to the matching productName
@@ -130,21 +93,6 @@ if(noProductFound.isDisplayed()){
              * 
              * Return true if these operations succeeds
              */
-            List<WebElement> titleElement=driver.findElements(By.xpath("//p[@class='MuiTypography-root MuiTypography-body1 css-yg30e6']"));
-
-            List<WebElement> addToCartElement=driver.findElements(By.xpath("//button[text()='Add to cart']"));
-            for(int i=0; i<titleElement.size(); i++){
-                WebElement tElement=titleElement.get(i);
-                String title=tElement.getText();
-
-                if(title.equals(productName)){
-                    WebElement addToCElement=addToCartElement.get(i);
-                    addToCElement.click();
-                    Thread.sleep(2000);
-                    return true;
-
-                }
-            }
             System.out.println("Unable to find the given product");
             return false;
         } catch (Exception e) {
@@ -159,13 +107,6 @@ if(noProductFound.isDisplayed()){
     public Boolean clickCheckout() {
         Boolean status = false;
         try {
-            // TODO: CRIO_TASK_MODULE_TEST_AUTOMATION - TEST CASE 05: MILESTONE 4
-            // Find and click on the the Checkout button
-WebElement checkOutButton=driver.findElement(By.xpath("//button[text()='Checkout']"));
-checkOutButton.click();
-
-
-
             return status;
         } catch (Exception e) {
             System.out.println("Exception while clicking on Checkout: " + e.getMessage());
@@ -179,52 +120,8 @@ checkOutButton.click();
      */
     public Boolean changeProductQuantityinCart(String productName, int quantity) {
         try {
-            // TODO: CRIO_TASK_MODULE_TEST_AUTOMATION - TEST CASE 06: MILESTONE 5
-
-            // Find the item on the cart with the matching productName
-
-            // Increment or decrement the quantity of the matching product until the current
-            // quantity is reached (Note: Keep a look out when then input quantity is 0,
-            // here we need to remove the item completely from the cart)
-            List<WebElement> cartProductParentElements=driver.findElements(By.xpath("//div[@class='MuiBox-root css-1gjj37g']"));
-            for(int i=0; i<cartProductParentElements.size(); i++){
-                WebElement parentElement=cartProductParentElements.get(i);
-                WebElement titleElement=parentElement.findElement(By.xpath("./div[1]"));
-                String title=titleElement.getText();
-                if(title.equals(productName)){
-                    while(true){
-                        WebElement actualQuantityElement=driver.findElement(By.xpath(".//*[@data-testid='item-qty']"));
-                        String actualQuantityText=actualQuantityElement.getText();
-                        int actualQuantity=Integer.parseInt(actualQuantityText);
-                        if(quantity>actualQuantity){
-                            WebElement plusButton=parentElement.findElement(By.xpath(".//*[@data-testid='AddOutlinedIcon']"));
-                            plusButton.click();
-                            //Thread.sleep(2000);
-                            
-
-                            WebDriverWait wait=new WebDriverWait(driver,30);
-                            wait.until(ExpectedConditions.textToBePresentInElement
-                            (parentElement.findElement(By.xpath(".//*[@data-testid='item-qty']")),
-                            String.valueOf(actualQuantity+1)));
 
 
-                        }else if(quantity<actualQuantity){
-                            WebElement minusButton=parentElement.findElement(By.xpath(".//*[@data-testid='RemoveOutlinedIcon']"));
-                            minusButton.click();
-                           // Thread.sleep(2000);
-
-                           WebDriverWait wait=new WebDriverWait(driver,30);
-                            wait.until(ExpectedConditions.textToBePresentInElement
-                            (parentElement.findElement(By.xpath(".//*[@data-testid='item-qty']")),
-                            String.valueOf(actualQuantity-1)));
-
-
-                        }else if(quantity==actualQuantity){
-                            break;
-                        }
-                    }
-                }
-            }
 
 
             return false;

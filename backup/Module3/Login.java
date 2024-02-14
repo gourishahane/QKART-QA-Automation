@@ -9,7 +9,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Login {
     RemoteWebDriver driver;
@@ -34,15 +33,12 @@ public class Login {
 
         // Wait for user name to be entered
         Thread.sleep(1000);
-        
 
         // Find the password Text Box
         WebElement password_txt_box = this.driver.findElement(By.id("password"));
-        Thread.sleep(1000);
 
         // Enter the password
         password_txt_box.sendKeys(Password);
-        Thread.sleep(1000);
 
         // Find the Login Button
         WebElement login_button = driver.findElement(By.className("button"));
@@ -52,13 +48,7 @@ public class Login {
 
         // SLEEP_STMT_13: Wait for Login to Complete
         // Wait for Login action to complete
-        //Thread.sleep(5000);
-        FluentWait<WebDriver> wait=new FluentWait<WebDriver>(driver);
-        wait.pollingEvery(Duration.ofMillis(250));
-        wait.withTimeout(Duration.ofSeconds(30));
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("button")));
-
-        
+        Thread.sleep(5000);
 
         return this.VerifyUserLoggedIn(Username);
     }

@@ -27,23 +27,11 @@ public class Checkout {
      */
     public Boolean addNewAddress(String addresString) {
         try {
-            // TODO: CRIO_TASK_MODULE_TEST_AUTOMATION - TEST CASE 05: MILESTONE 4
             /*
-             * Click on the "Add new address" button, enter the addressString in the address text
-             * box and click on the "ADD" button to save the address
+             * Click on the "Add new address" button, enter the addressString in the address
+             * text box and click on the "ADD" button to save the address
              */
-            WebElement addNewAddElement = driver.findElement(By.id("add-new-btn"));
-            addNewAddElement.click();
-
-            WebElement addField = driver.findElement(
-                    By.xpath("//textarea[@placeholder='Enter your complete address']"));
-            addField.sendKeys(addresString);
-
-            WebElement addButton = driver.findElement(By.xpath("//button[text()='Add']"));
-            addButton.click();
-            WebDriverWait wait=new WebDriverWait(driver, 2);
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@class='address-item not-selected MuiBox-root css-0'])/div[1]/p")));
-            return true;
+            return false;
         } catch (Exception e) {
             System.out.println("Exception occurred while entering address: " + e.getMessage());
             return false;
@@ -56,29 +44,14 @@ public class Checkout {
      */
     public Boolean selectAddress(String addressToSelect) {
         try {
-            // TODO: CRIO_TASK_MODULE_TEST_AUTOMATION - TEST CASE 05: MILESTONE 4
             /*
-             * Iterate through all the address boxes to find the address box with matching text,
-             * addressToSelect and click on it
+             * Iterate through all the address boxes to find the address box with matching
+             * text, addressToSelect and click on it
              */
-            List<WebElement> addressElement = driver.findElements(By.xpath(
-                    "(//div[@class='address-item not-selected MuiBox-root css-0'])/div[1]/p"));
-            for (int i = 0; i < addressElement.size(); i++) {
-                WebElement address = addressElement.get(i);
-                String actualAddress = address.getText();
-                if (actualAddress.equals(addressToSelect)) {
-                    address.click();
-                    return true;
-
-                }
-            }
-
-
             System.out.println("Unable to find the given address");
             return false;
         } catch (Exception e) {
-            System.out.println(
-                    "Exception Occurred while selecting the given address: " + e.getMessage());
+            System.out.println("Exception Occurred while selecting the given address: " + e.getMessage());
             return false;
         }
 
@@ -89,12 +62,7 @@ public class Checkout {
      */
     public Boolean placeOrder() {
         try {
-            // TODO: CRIO_TASK_MODULE_TEST_AUTOMATION - TEST CASE 05: MILESTONE 4
-            // Find the "PLACE ORDER" button and click on it
-
-            WebElement placeOrder = driver.findElement(By.xpath("//button[text()='PLACE ORDER']"));
-            placeOrder.click();
-            return true;
+            return false;
 
         } catch (Exception e) {
             System.out.println("Exception while clicking on PLACE ORDER: " + e.getMessage());
@@ -107,21 +75,9 @@ public class Checkout {
      */
     public Boolean verifyInsufficientBalanceMessage() {
         try {
-            // TODO: CRIO_TASK_MODULE_TEST_AUTOMATION - TEST CASE 07: MILESTONE 6
-            WebElement alertMessage=driver.findElement(By.id("notistack-snackbar"));
-            if(alertMessage.isDisplayed()){
-                String alertMessageTitle=alertMessage.getText();
-                if(alertMessageTitle.equals("You do not have enough balance in your wallet for this purchase")){
-                    return true;
-
-                }
-               
-            }
-
             return false;
         } catch (Exception e) {
-            System.out.println(
-                    "Exception while verifying insufficient balance message: " + e.getMessage());
+            System.out.println("Exception while verifying insufficient balance message: " + e.getMessage());
             return false;
         }
     }

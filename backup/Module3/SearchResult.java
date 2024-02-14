@@ -23,13 +23,6 @@ public class SearchResult {
      */
     public String getTitleofResult() {
         String titleOfSearchResult = "";
-        // TODO: CRIO_TASK_MODULE_TEST_AUTOMATION - TEST CASE 03: MILESTONE 1
-        // Find the element containing the title (product name) of the search result and
-        // assign the extract title text to titleOfSearchResult
-        WebElement titElement=parentElement.findElement(By.xpath(".//p[@class='MuiTypography-root MuiTypography-body1 css-yg30e6']"));
-        titleOfSearchResult=titElement.getText();
-
-
         return titleOfSearchResult;
     }
 
@@ -38,13 +31,6 @@ public class SearchResult {
      */
     public Boolean openSizechart() {
         try {
-
-            // TODO: CRIO_TASK_MODULE_TEST_AUTOMATION - TEST CASE 04: MILESTONE 2
-            // Find the link of size chart in the parentElement and click on it
-            WebElement sizeChartButton=parentElement.findElement(By.xpath(".//button[text()='Size chart']"));
-            sizeChartButton.click();
-            Thread.sleep(1000);
-
 
             return true;
         } catch (Exception e) {
@@ -61,7 +47,6 @@ public class SearchResult {
             Thread.sleep(2000);
             Actions action = new Actions(driver);
 
-            // Clicking on "ESC" key closes the size chart modal
             action.sendKeys(Keys.ESCAPE);
             action.perform();
             Thread.sleep(2000);
@@ -78,19 +63,11 @@ public class SearchResult {
     public Boolean verifySizeChartExists() {
         Boolean status = false;
         try {
-            // TODO: CRIO_TASK_MODULE_TEST_AUTOMATION - TEST CASE 04: MILESTONE 2
             /*
              * Check if the size chart element exists. If it exists, check if the text of
              * the element is "SIZE CHART". If the text "SIZE CHART" matches for the
              * element, set status = true , else set to false
              */
-            WebElement sizeChartButton=parentElement.findElement(By.xpath(".//button[text()='Size chart']"));
-            if(sizeChartButton.isDisplayed()){
-                String text=sizeChartButton.getText();
-                if(text.equalsIgnoreCase("SIZE CHART")){
-                    status=true;
-                }
-            }
             return status;
         } catch (Exception e) {
             return status;
@@ -105,7 +82,6 @@ public class SearchResult {
             WebDriver driver) {
         Boolean status = true;
         try {
-            // TODO: CRIO_TASK_MODULE_TEST_AUTOMATION - TEST CASE 04: MILESTONE 2
             /*
              * Locate the table element when the size chart modal is open
              * 
@@ -115,36 +91,6 @@ public class SearchResult {
              * Validate that the contents of expectedTableBody are present in the table body
              * in the same order
              */
-for(int i=0; i<expectedTableHeaders.size(); i++){
-    String expectedTableHeader=expectedTableHeaders.get(i);
-    int column=i+1;
-    String theadXpath="//table/thead/tr/th["+column+"]";
-    WebElement thead=driver.findElement(By.xpath(theadXpath));
-    String actualTableHeader=thead.getText();
-    if(!expectedTableHeader.equals(actualTableHeader)){
-        status=false;
-    }
-
-}
-
-for(int i=0; i<expectedTableBody.size(); i++){
-    List<String> tableRow=expectedTableBody.get(i);
-       
-
-
-    for(int j=0; j<tableRow.size(); j++){
-        String expectedBodyValue=tableRow.get(j);
-        int row=i+1;
-        int column=j+1;
-        String xpath="//table/tbody/tr["+row+"]/td["+column+"]";
-        WebElement tBodyElement=driver.findElement(By.xpath(xpath));
-        String actualBodyValue=tBodyElement.getText();
-        if(!expectedBodyValue.equals(actualBodyValue)){
-            status=false;
-        }
-    }
-}
-
             return status;
 
         } catch (Exception e) {
@@ -159,12 +105,6 @@ for(int i=0; i<expectedTableBody.size(); i++){
     public Boolean verifyExistenceofSizeDropdown(WebDriver driver) {
         Boolean status = false;
         try {
-            // TODO: CRIO_TASK_MODULE_TEST_AUTOMATION - TEST CASE 04: MILESTONE 2
-            // If the size dropdown exists and is displayed return true, else return false
-            WebElement sizeDropdown=driver.findElement(By.id("uncontrolled-native"));
-            if(sizeDropdown.isDisplayed()){
-                return true;
-            }
             return status;
         } catch (Exception e) {
             return status;

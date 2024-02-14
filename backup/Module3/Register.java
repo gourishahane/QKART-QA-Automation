@@ -55,7 +55,6 @@ public class Register {
 
         // Enter the Confirm Password Value
         confirm_password_txt_box.sendKeys(test_data_password);
-        //Thread.sleep(3000);
 
         // Find the register now button
         WebElement register_now_button = this.driver.findElement(By.className("button"));
@@ -63,14 +62,9 @@ public class Register {
         // Click the register now button
         register_now_button.click();
         // Wait for registration to complete
-        //Thread.sleep(3000);
+        Thread.sleep(3000);
 
         // SLEEP_STMT_06: Wait for new user to get created in the backend
-
-        WebDriverWait wait=new WebDriverWait(driver, 3);
-          wait.until(ExpectedConditions.or(
-                                            ExpectedConditions.visibilityOfElementLocated(By.id("notistack-snackbar")),
-                                            ExpectedConditions.urlContains("/login")));
 
         this.lastGeneratedUsername = test_data_username;
 
