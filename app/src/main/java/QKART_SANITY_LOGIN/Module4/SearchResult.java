@@ -37,7 +37,7 @@ public class SearchResult {
     public Boolean openSizechart() {
         try {
             // Find the link of size chart in the parentElement and click on it
-            WebElement element = parentElement.findElement(By.tagName("button"));
+            WebElement element = parentElement.findElement(By.xpath("//button[text()='Size chart']"));
             element.click();
 
             Thread.sleep(3000);
@@ -84,7 +84,7 @@ public class SearchResult {
              * the element is "SIZE CHART". If the text "SIZE CHART" matches for the
              * element, set status = true , else set to false
              */
-            WebElement element = parentElement.findElement(By.tagName("button"));
+            WebElement element = parentElement.findElement(By.xpath("//button[text()='Size chart']"));
             status = element.getText().equals("SIZE CHART");
 
             return status;
