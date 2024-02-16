@@ -53,11 +53,11 @@ public class Home {
             // TODO: CRIO_TASK_MODULE_XPATH - M0 Fix broken Xpath
             WebDriverWait wait = new WebDriverWait(driver, 30);
             wait.until(ExpectedConditions.or(
-    ExpectedConditions.textToBePresentInElementLocated(By.className("css-yg30e6"), product),
+    ExpectedConditions.presenceOfElementLocated(By.xpath("//p[contains(@class,'css-yg30e6')]")),
     ExpectedConditions.presenceOfElementLocated(By.xpath("//h4[contains(text(),' No products found ')]"))
 ));
 
-             Thread.sleep(3000);
+            Thread.sleep(3000);
             return true;
         } catch (Exception e) {
             System.out.println("Error while searching for a product: " + e.getMessage());

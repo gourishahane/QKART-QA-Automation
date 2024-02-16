@@ -178,7 +178,7 @@ public class QkartSanityV2 {
 
         // Search for product
         status = homePage.searchForProduct("Gesundheit");
-        if (status) {
+        if (!status) {
             logStatus("TestCase 3", "Test Case Failure. Invalid keyword returned results", "FAIL");
             return false;
         }
@@ -513,6 +513,7 @@ public class QkartSanityV2 {
         return status;
     }
 
+    
     public static Boolean TestCase09(RemoteWebDriver driver) throws InterruptedException {
         Boolean status = false;
 
@@ -718,7 +719,7 @@ public class QkartSanityV2 {
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
         try {
-            // Execute Test Case 1
+            //Execute Test Case 1
             totalTests += 1;
             status = TestCase01(driver);
             if (status) {
@@ -736,7 +737,7 @@ public class QkartSanityV2 {
 
             System.out.println("");
 
-            // Execute Test Case 3
+           // Execute Test Case 3
             totalTests += 1;
             status = TestCase03(driver);
             if (status) {
