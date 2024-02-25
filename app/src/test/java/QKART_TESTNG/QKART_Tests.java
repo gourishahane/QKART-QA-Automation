@@ -5,7 +5,7 @@ import QKART_TESTNG.pages.Home;
 import QKART_TESTNG.pages.Login;
 import QKART_TESTNG.pages.Register;
 import QKART_TESTNG.pages.SearchResult;
-
+import static org.junit.Assert.assertFalse;
 import static org.testng.Assert.*;
 
 import java.io.File;
@@ -35,7 +35,7 @@ public class QKART_Tests {
     static RemoteWebDriver driver;
     public static String lastGeneratedUserName;
 
-     @BeforeSuite
+    //  @BeforeSuite(alwaysRun = true)
     public static void createDriver() throws MalformedURLException {
         // Launch Browser using Zalenium
         final DesiredCapabilities capabilities = new DesiredCapabilities();
@@ -66,8 +66,10 @@ public class QKART_Tests {
         Login login = new Login(driver);
         login.navigateToLoginPage();
          status = login.PerformLogin(lastGeneratedUserName, "abc@123");
+         assertTrue(status, "Failed to login with registered user");
          logStatus("Test Step", "User Perform Login: ", status ? "PASS" : "FAIL");
-        assertTrue(status, "Failed to login with registered user");
+       
+        
 
         // Visit the home page and log out the logged in user
         Home home = new Home(driver);
@@ -78,8 +80,43 @@ public class QKART_Tests {
          takeScreenshot(driver, "EndTestCase", "TestCase1");
     }
 
+    /*
+     * Verify that an existing user is not allowed to re-register on QKart
+     */
+     @Test
+     public void TestCase02() throws InterruptedException {
+        Boolean status;
+        logStatus("Start Testcase", "Test Case 2: Verify User Registration with an existing username ", "DONE");
 
-    @AfterSuite
+        // Visit the Registration page and register a new user
+        Register registration = new Register(driver);
+        registration.navigateToRegisterPage();
+        status = registration.registerUser("testUser", "abc@123", true);
+        assertTrue(status, "Failed to register new user");
+        logStatus("Test Step", "User Registration : ", status ? "PASS" : "FAIL");
+        /*if (!status) {
+            logStatus("End TestCase", "Test Case 2: Verify user Registration : ", status ? "PASS" : "FAIL");
+            return false;
+
+        }*/
+
+        // Save the last generated username
+        lastGeneratedUserName = registration.lastGeneratedUsername;
+
+        // Visit the Registration page and try to register using the previously
+        // registered user's credentials
+        registration.navigateToRegisterPage();
+        status = registration.registerUser(lastGeneratedUserName, "abc@123", false);
+        assertFalse("Existing user registration succeed.", status);
+
+        // If status is true, then registration succeeded, else registration has
+        // failed. In this case registration failure means Success
+        logStatus("End TestCase", "Test Case 2: Verify user Registration : ", status ? "FAIL" : "PASS");
+        //return !status;
+    }
+
+
+    // @AfterSuite
     public static void quitDriver() {
         System.out.println("quit()");
         driver.quit();
