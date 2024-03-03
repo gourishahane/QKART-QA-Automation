@@ -178,7 +178,7 @@ public class QkartSanityV2 {
 
         // Search for product
         status = homePage.searchForProduct("Gesundheit");
-        if (status) {
+        if (!status) {
             logStatus("TestCase 3", "Test Case Failure. Invalid keyword returned results", "FAIL");
             return false;
         }
@@ -199,67 +199,67 @@ public class QkartSanityV2 {
         return true;
     }
 
-    /*
-     * Verify the presence of size chart and check if the size chart content is as
-     * expected
-     */
-    public static Boolean TestCase04(RemoteWebDriver driver) throws InterruptedException {
-        logStatus("TestCase 4", "Start test case : Verify the presence of size Chart", "DONE");
-        boolean status = false;
+        /*
+        * Verify the presence of size chart and check if the size chart content is as
+        * expected
+        */
+        public static Boolean TestCase04(RemoteWebDriver driver) throws InterruptedException {
+            logStatus("TestCase 4", "Start test case : Verify the presence of size Chart", "DONE");
+            boolean status = false;
 
-        // Visit home page
-        Home homePage = new Home(driver);
-        homePage.navigateToHome();
+            // Visit home page
+            Home homePage = new Home(driver);
+            homePage.navigateToHome();
 
-        // Search for product and get card content element of search results
-        status = homePage.searchForProduct("Running Shoes");
-        List<WebElement> searchResults = homePage.getSearchResults();
+            // Search for product and get card content element of search results
+            status = homePage.searchForProduct("Running Shoes");
+            List<WebElement> searchResults = homePage.getSearchResults();
 
-        // Create expected values
-        List<String> expectedTableHeaders = Arrays.asList("Size", "UK/INDIA", "EU", "HEEL TO TOE");
-        List<List<String>> expectedTableBody = Arrays.asList(Arrays.asList("6", "6", "40", "9.8"),
-                Arrays.asList("7", "7", "41", "10.2"), Arrays.asList("8", "8", "42", "10.6"),
-                Arrays.asList("9", "9", "43", "11"), Arrays.asList("10", "10", "44", "11.5"),
-                Arrays.asList("11", "11", "45", "12.2"), Arrays.asList("12", "12", "46", "12.6"));
+            // Create expected values
+            List<String> expectedTableHeaders = Arrays.asList("Size", "UK/INDIA", "EU", "HEEL TO TOE");
+            List<List<String>> expectedTableBody = Arrays.asList(Arrays.asList("6", "6", "40", "9.8"),
+                    Arrays.asList("7", "7", "41", "10.2"), Arrays.asList("8", "8", "42", "10.6"),
+                    Arrays.asList("9", "9", "43", "11"), Arrays.asList("10", "10", "44", "11.5"),
+                    Arrays.asList("11", "11", "45", "12.2"), Arrays.asList("12", "12", "46", "12.6"));
 
-        // Verify size chart presence and content matching for each search result
-        for (WebElement webElement : searchResults) {
-            SearchResult result = new SearchResult(webElement);
+            // Verify size chart presence and content matching for each search result
+            for (WebElement webElement : searchResults) {
+                SearchResult result = new SearchResult(webElement);
 
-            // Verify if the size chart exists for the search result
-            if (result.verifySizeChartExists()) {
-                logStatus("Step Success", "Successfully validated presence of Size Chart Link", "PASS");
+                // Verify if the size chart exists for the search result
+                if (result.verifySizeChartExists()) {
+                    logStatus("Step Success", "Successfully validated presence of Size Chart Link", "PASS");
 
-                // Verify if size dropdown exists
-                status = result.verifyExistenceofSizeDropdown(driver);
-                logStatus("Step Success", "Validated presence of drop down", status ? "PASS" : "FAIL");
+                    // Verify if size dropdown exists
+                    status = result.verifyExistenceofSizeDropdown(driver);
+                    logStatus("Step Success", "Validated presence of drop down", status ? "PASS" : "FAIL");
 
-                // Open the size chart
-                if (result.openSizechart()) {
-                    // Verify if the size chart contents matches the expected values
-                    if (result.validateSizeChartContents(expectedTableHeaders, expectedTableBody, driver)) {
-                        logStatus("Step Success", "Successfully validated contents of Size Chart Link", "PASS");
+                    // Open the size chart
+                    if (result.openSizechart()) {
+                        // Verify if the size chart contents matches the expected values
+                        if (result.validateSizeChartContents(expectedTableHeaders, expectedTableBody, driver)) {
+                            logStatus("Step Success", "Successfully validated contents of Size Chart Link", "PASS");
+                        } else {
+                            logStatus("Step Failure", "Failure while validating contents of Size Chart Link", "FAIL");
+                            status = false;
+                        }
+
+                        // Close the size chart modal
+                        status = result.closeSizeChart(driver);
+
                     } else {
-                        logStatus("Step Failure", "Failure while validating contents of Size Chart Link", "FAIL");
-                        status = false;
+                        logStatus("TestCase 4", "Test Case Fail. Failure to open Size Chart", "FAIL");
+                        return false;
                     }
 
-                    // Close the size chart modal
-                    status = result.closeSizeChart(driver);
-
                 } else {
-                    logStatus("TestCase 4", "Test Case Fail. Failure to open Size Chart", "FAIL");
+                    logStatus("TestCase 4", "Test Case Fail. Size Chart Link does not exist", "FAIL");
                     return false;
                 }
-
-            } else {
-                logStatus("TestCase 4", "Test Case Fail. Size Chart Link does not exist", "FAIL");
-                return false;
             }
+            logStatus("TestCase 4", "End Test Case: Validated Size Chart Details", status ? "PASS" : "FAIL");
+            return status;
         }
-        logStatus("TestCase 4", "End Test Case: Validated Size Chart Details", status ? "PASS" : "FAIL");
-        return status;
-    }
 
     /*
      * Verify the complete flow of checking out and placing order for products is

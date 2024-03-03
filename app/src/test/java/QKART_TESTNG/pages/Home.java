@@ -44,22 +44,22 @@ public class Home {
      * errors
      */
     public Boolean searchForProduct(String product) {
-        try {
-            // Clear the contents of the search box and Enter the product name in the search
-            // box
-            WebElement searchBox = driver.findElement(By.xpath("//input[@name='search'][1]"));
-            searchBox.clear();
-            searchBox.sendKeys(product);
-
-            WebDriverWait wait = new WebDriverWait(driver, 30);
-            wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath(String
-                    .format("//div[@class='MuiCardContent-root css-1qw96cp'][1]/p[contains(text(),'%s')]", product))));
-            Thread.sleep(3000);
-            return true;
-        } catch (Exception e) {
-            System.out.println("Error while searching for a product: " + e.getMessage());
-            return false;
-        }
+            try {
+                // Clear the contents of the search box and Enter the product name in the search
+                // box
+                WebElement searchBox = driver.findElement(By.xpath("//input[@name='search'][1]"));
+                searchBox.clear();
+                searchBox.sendKeys(product);
+                WebDriverWait wait = new WebDriverWait(driver,30);
+                wait.until(ExpectedConditions.or(ExpectedConditions.textToBePresentInElementLocated(By.className("css-yg30e6"), product),
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//h4[text()=' No products found ']"))));
+                Thread.sleep(3000);
+                return true;
+            } catch (Exception e) {
+                System.out.println("Error while searching for a product: " + e.getMessage());
+                return false;
+            }
+        
     }
 
     /*
