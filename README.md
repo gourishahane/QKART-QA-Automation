@@ -74,6 +74,6 @@ Run the tests using Maven:
   
 ## Contact Information
 - Name: Gouri Shahane
-- Email: gouri.shahane@gmail.com
+- Email: gourishahane@gmail.com
 - GitHub: github.com/gourishahane
 - LinkedIn: linkedin.com/in/gourishahane
